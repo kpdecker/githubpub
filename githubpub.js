@@ -31,6 +31,7 @@ app.post('/githubpub/:channel', function(req, res, next) {
         channel: req.params.channel,
         message: message
       }, function(response) {
+        console.log(response);
         res.send(200);
       });
   } catch (err) {
