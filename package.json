@@ -1,0 +1,16 @@
+{
+  "name": "githubpub",
+  "description": "PubNub endpoint for Github Post-Receive URLs",
+  "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/kpdecker/githubpub.git"
+  },
+  "engines": {
+    "node": ">=0.4.5"
+  },
+  "dependencies": {
+    "express": "~2.5",
+    "pubnub": "~3.1"
+  }
+}
