@@ -17,10 +17,17 @@ app.configure(function() {
 });
 
 app.post('/githubpub/:channel', function(req, res, next) {
-  console.log('sending message on channel', req.params.channel, req.body);
+  var message = {
+    repo: req.body.repository.url,
+    ref: req.body.ref,
+    before: req.body.before,
+    after: req.body.after
+  };
+
+  console.log('sending message on channel', req.params.channel, message);
   pubnub.publish({
       channel: req.params.channel,
-      message: req.body
+      message: message
     }, function(response) {
       res.send(200);
     });
