@@ -18,12 +18,13 @@ app.configure(function() {
 
 app.post('/githubpub/:channel', function(req, res, next) {
   try {
-    var message = {
-      repo: req.body.repository.url,
-      ref: req.body.ref,
-      before: req.body.before,
-      after: req.body.after
-    };
+    var payload = JSON.parse(req.body.payload),
+        message = {
+          repo: payload.repository.url,
+          ref: payload.ref,
+          before: payload.before,
+          after: payload.after
+        };
 
     console.log('sending message on channel', req.params.channel, message);
     pubnub.publish({
@@ -33,7 +34,7 @@ app.post('/githubpub/:channel', function(req, res, next) {
         res.send(200);
       });
   } catch (err) {
-    console.error('Request failed', req.body, err.stack);
+    console.error('Request failed', payload || req.body, err.stack);
     res.send(500);
   }
 });
