@@ -17,20 +17,25 @@ app.configure(function() {
 });
 
 app.post('/githubpub/:channel', function(req, res, next) {
-  var message = {
-    repo: req.body.repository.url,
-    ref: req.body.ref,
-    before: req.body.before,
-    after: req.body.after
-  };
+  try {
+    var message = {
+      repo: req.body.repository.url,
+      ref: req.body.ref,
+      before: req.body.before,
+      after: req.body.after
+    };
 
-  console.log('sending message on channel', req.params.channel, message);
-  pubnub.publish({
-      channel: req.params.channel,
-      message: message
-    }, function(response) {
-      res.send(200);
-    });
+    console.log('sending message on channel', req.params.channel, message);
+    pubnub.publish({
+        channel: req.params.channel,
+        message: message
+      }, function(response) {
+        res.send(200);
+      });
+  } catch (err) {
+    console.error('Request failed', req.body, err.stack);
+    res.send(500);
+  }
 });
 
 var port = process.env.PORT || 5000;
