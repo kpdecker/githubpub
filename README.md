@@ -7,7 +7,7 @@ PubNub endpoint for Github Post-Receive URLs
 Heroku
 
     heroku create -s cedar
-    heroku install pubnub:minimal
+    heroku addons:add pubnub:minimal
     git push heroku master
 
 Standalone
